@@ -13,18 +13,33 @@ namespace Forum.FørOpg2.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Friends()
         {
-            ViewBag.Message = "Your application description page.";
+            
+            return View();
+        }
+
+        public ActionResult Explore()
+        {
+            
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Incognitive()
         {
-            ViewBag.Message = "Your contact page.";
+
 
             return View();
         }
-    }
+
+        public ActionResult Settings()
+        {
+
+
+            return View();
+        }
+
+
+        }
 }
