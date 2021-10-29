@@ -26,7 +26,7 @@ namespace Forum.FørOpg2.Controllers
             return View();
         }
 
-        public ActionResult Incognitive()
+        public ActionResult Spotify()
         {
 
 

@@ -1,0 +1,140 @@
+﻿<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Navbar på siden</title>
+    <link rel="stylesheet" href="~/Content/styles.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".hamburger").click(function () {
+                $(".wrapper").toggleClass("collapse");
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="top_navbar">
+            <div class="hamburger">
+                @*de der tre linjer på menu dropdown ting*@
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
+            <div class="top_menu">
+                <div class="logo">LOGO LOGO</div>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i></a></li>
+                    <li><a href="#"><i class="fas fa-globe-asia"></i></a></li>
+                    <li><a href="#"><i class="fas fa-user-secret"></i></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <ul>
+                <li>
+                    <a href="~/home/Index">
+                        <span class="icon"></span>
+                        <i class="fas fa-home" aria-hidden="true"></i>
+                        <span class="title">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="~/home/friends">
+                        <span class="icon">
+                            <i class="fas fa-user-friends" aria-hidden="true"></i>
+                        </span>
+                        <span class="title">Friends</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="~/home/explore">
+                        <span class="icon">
+                            <i class="fas fa-comments" aria-hidden="true"></i>
+                        </span>
+                        <span class="title">Explore</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="~/home/spotify" class="active">
+                        <span class="icon">
+                            <i class="fab fa-spotify" aria-hidden="true"></i>
+                        </span>
+                        <span class="title">Spotify</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="~/home/settings">
+                        <span class="icon">
+                            <i class="fas fa-cog" aria-hidden="true"></i>
+                        </span>
+                        <span class="title">Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="main_container">
+            <div class="item">
+                <h1>
+                    <iframe src="https://open.spotify.com/follow/1/?uri=spotify:artist:66CXWjxzNUsdJxJ2JdwvnR?si=Ck2rL2p3SNCDb7usprJ2ow&size=detail&theme=light" width="300" height="56" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe>
+                </h1>
+                <br />
+                <iframe src="https://open.spotify.com/embed/artist/66CXWjxzNUsdJxJ2JdwvnR" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <iframe src="https://open.spotify.com/embed/album/3euz4vS7ezKGnNSwgyvKcd" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <iframe src="https://open.spotify.com/embed/album/2fYhqwDWXjbpjaIJPEfKFw" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <iframe src="https://open.spotify.com/embed/album/3tx8gQqWbGwqIGZHqDNrGe" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            </div>
+
+            <div class="item">
+                <h1>
+                    <iframe src="https://open.spotify.com/follow/1/?uri=spotify:artist:246dkjvS1zLTtiykXe5h60?si=RXXJhRI0QS6vizT7yHp9BA&size=detail&theme=light" width="300" height="56" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe>
+                </h1>
+                <br />
+                <iframe src="https://open.spotify.com/embed/artist/246dkjvS1zLTtiykXe5h60" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <iframe src="https://open.spotify.com/embed/album/4g1ZRSobMefqF6nelkgibi" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <iframe src="https://open.spotify.com/embed/album/6trNtQUgC8cgbWcqoMYkOR" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <iframe src="https://open.spotify.com/embed/album/5s0rmjP8XOPhP6HhqOhuyC" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            </div>
+
+            <div class="item">
+                <h1>
+                    <iframe src="https://open.spotify.com/follow/1/?uri=spotify:artist:0C8ZW7ezQVs4URX5aX7Kqx?si=a3ESVENYTB2oAsIMiVsWZw&size=detail&theme=light" width="300" height="56" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe>
+                </h1>
+                <br />
+                <iframe src="https://open.spotify.com/embed/artist/0C8ZW7ezQVs4URX5aX7Kqx" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <iframe src="https://open.spotify.com/embed/album/3YPFaTR7WMi1Hd4NVKdCJx" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <iframe src="https://open.spotify.com/embed/album/2jGa3OwXatFYQAIS7OV7k9" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <iframe src="https://open.spotify.com/embed/album/3Kbuu2tHsIbplFUkB7a5oE" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            </div>
+
+            <div class="item">
+                <h1>
+                    <iframe src="https://open.spotify.com/follow/1/?uri=spotify:artist:3TVXtAsR1Inumwj472S9r4?si=b2ZmV8oBStO4dsDcZEvakg&size=detail&theme=light" width="300" height="56" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe>
+                </h1>
+                <br />
+                <iframe src="https://open.spotify.com/embed/artist/3TVXtAsR1Inumwj472S9r4" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <iframe src="https://open.spotify.com/embed/album/1ATL5GLyefJaxhQzSPVrLX" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <iframe src="https://open.spotify.com/embed/album/40GMAhriYJRO1rsY4YdrZb" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <iframe src="https://open.spotify.com/embed/album/1lXY618HWkwYKJWBRYR4MK" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            </div>
+
+            <div class="item">
+                <h1>
+                    <iframe src="https://open.spotify.com/follow/1/?uri=spotify:artist:5f7VJjfbwm532GiveGC0ZK?si=Yc86QH37QGiViB8gBgC0Qw&size=detail&theme=light" width="300" height="56" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowtransparency="true"></iframe>
+                </h1>
+                <br />
+                <iframe src="https://open.spotify.com/embed/artist/5f7VJjfbwm532GiveGC0ZK" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <iframe src="https://open.spotify.com/embed/album/6CvBb1XqN0igtQrWrbXD80" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <iframe src="https://open.spotify.com/embed/album/2yXnY2NiaZk9QiJJittS81" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                <iframe src="https://open.spotify.com/embed/album/1ynyQdPQiXdYJNQEDL1S3d" width="307" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

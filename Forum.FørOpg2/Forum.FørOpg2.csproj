@@ -175,7 +175,7 @@
     <Content Include="Views\Home\Friends.cshtml" />
     <Content Include="Views\Home\Explore.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Incognitive.cshtml" />
+    <Content Include="Views\Home\Spotify.cshtml" />
     <Content Include="Views\Home\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
