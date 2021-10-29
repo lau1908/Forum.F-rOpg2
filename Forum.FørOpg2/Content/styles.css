@@ -13,6 +13,11 @@ body {
     background: #EDF4F5;
 }
 
+body.incognitive{
+    background: #313232;
+}
+
+
 .wrapper {
     margin: 10px;
 }
