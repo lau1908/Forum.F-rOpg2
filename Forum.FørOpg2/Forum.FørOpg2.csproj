@@ -177,6 +177,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Spotify.cshtml" />
     <Content Include="Views\Home\Settings.cshtml" />
+    <Content Include="Views\Home\Chatsite.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
