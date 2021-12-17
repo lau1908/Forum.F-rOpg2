@@ -184,6 +184,16 @@ body {
     background-color: rgb(230 230 230);
 }
 
+#Gamingicon{
+    background-image:src()
+}
+#Fiskicon{
+
+}
+
+#Brødicon{
+
+}
 
 .wrapper.collapse .sidebar {
     width: 70px;
