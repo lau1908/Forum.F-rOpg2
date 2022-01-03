@@ -39,7 +39,10 @@ namespace Forum.FørOpg2.Controllers
 
             return View();
         }
+        public ActionResult Chatsite()
+        {
 
-
+            return View();
         }
+    }
 }
