@@ -160,8 +160,8 @@ body {
 }
 
     .emne {
-        height: 310px;
-        width: 310px;
+        height: 50vh;
+        width: 50vh;
         text-align: center;
         background-color: white;
         display: flex;
@@ -172,27 +172,34 @@ body {
 .emneNavn {
     display: block;
     vertical-align: middle;
-    font-size: 30px;
+    font-size: 5vh;
 }
 
     .emne:hover .emneNavn {
         display: block;
-        font-size:40px;
+        font-size:6vh;
         font-weight:bold;
     }
 .emne:hover {
     background-color: rgb(230 230 230);
 }
 
-#Gamingicon{
-    background-image:src()
+#Gamingicon {
+    background: url(https://www.elgiganten.dk/resource/blob/99408/ec45ce2c92a1326b48c46e0258be7344/gaming-headset-next-to-a-xbox-controller-data.png);
+    background-repeat: no-repeat;
+    width: 50vh;
+    height: 50vh;
 }
 #Fiskicon{
 
 }
 
-#Brødicon{
-
+#Brødicon {
+    background: url(https://nyre.dk/wp-content/uploads/2021/04/Hvidloegsflute-e1627895555161-300x300.jpg);
+    background-repeat: no-repeat;
+    width: 50vh;
+    height: 50vh;
+    object-fit: cover;
 }
 
 .wrapper.collapse .sidebar {
