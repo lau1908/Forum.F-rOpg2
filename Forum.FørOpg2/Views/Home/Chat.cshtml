@@ -1,14 +1,104 @@
 ﻿@{
     ViewBag.Title = "Chat";
 }
-<h2>Chat</h2>
-<div class="container">
-    <input type="text" id="message" />
-    <input type="button" id="sendmessage" value="Send" />
-    <input type="hidden" id="displayname" />
-    <ul id="discussion">
-    </ul>
-</div>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Chat</title>
+    <link rel="stylesheet" href="~/Content/styles.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".hamburger").click(function () {
+                $(".wrapper").toggleClass("collapse");
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="top_navbar">
+            <div class="hamburger">
+                @*de der tre linjer på menu dropdown ting*@
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
+            <div class="top_menu">
+                <div class="logo">LOGO LOGO</div>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i></a></li>
+                    <li><a href="#"><i class="fas fa-globe-asia"></i></a></li>
+                    <li><a href="#"><i class="fas fa-user-secret"></i></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <ul>
+                <li>
+                    <a href="~/home/Index" >
+                        <span class="icon"></span>
+                        <i class="fas fa-home" aria-hidden="true"></i>
+                        <span class="title">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="~/home/friends">
+                        <span class="icon">
+                            <i class="fas fa-user-friends" aria-hidden="true"></i>
+                        </span>
+                        <span class="title">Friends</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="~/home/explore"class="active">
+                        <span class="icon">
+                            <i class="fas fa-comments" aria-hidden="true"></i>
+                        </span>
+                        <span class="title">Explore</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="~/home/spotify">
+                        <span class="icon">
+                            <i class="fab fa-spotify" aria-hidden="true"></i>
+                        </span>
+                        <span class="title">Spotify</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="~/home/settings">
+                        <span class="icon">
+                            <i class="fas fa-cog" aria-hidden="true"></i>
+                        </span>
+                        <span class="title">Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="main_container">
+
+            <div class="container">
+                <input type="hidden" id="displayname" />
+                <ul id="discussion"> 
+                </ul>
+                <div id="txtInput" style="display: flex; gap: 10px;">
+                    <input type="text" id="message" />
+                    <input type="button" id="sendmessage" value="Send" />
+                </div>
+               
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
+
 @section scripts {
     <!--Script references. -->
     <!--The jQuery library is required and is referenced by default in _Layout.cshtml. -->
@@ -18,6 +108,7 @@
     <script src="~/signalr/hubs"></script>
     <!--SignalR script to update the chat page and send messages.-->
     <script>
+
         $(function () {
             // Reference the auto-generated proxy for the hub.
             var chat = $.connection.chatHub;
@@ -26,6 +117,7 @@
                 // Add the message to the page.
                 $('#discussion').append('<li><strong>' + htmlEncode(name)
                     + '</strong>: ' + htmlEncode(message) + '</li>');
+                
             };
             // Get the user name and store it to prepend to messages.
             $('#displayname').val(prompt('Enter your name:', ''));
@@ -39,7 +131,17 @@
                     // Clear text box and reset focus for next comment.
                     $('#message').val('').focus();
                 });
+          
+
+                if (event.keyCode === 13) { //13 er koden for "Enter" //virker ikke
+                    // Call the Send method on the hub.
+                    chat.server.send($('#displayname').val(), $('#message').val());
+                    // Clear text box and reset focus for next comment.
+                    $('#message').val('').focus();
+                }
+
             });
+
         });
         // This optional function html-encodes messages for display in the page.
         function htmlEncode(value) {
