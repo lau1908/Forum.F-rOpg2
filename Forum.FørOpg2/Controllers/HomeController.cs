@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
+using Forum.FørOpg2.Models1;
+using System.Data.Entity.Validation;
+
+
 
 namespace Forum.FørOpg2.Controllers
 {
@@ -31,7 +36,14 @@ namespace Forum.FørOpg2.Controllers
 
 
             return View();
+        } public ActionResult GammingChat()
+        {
+
+
+            return View();
         }
+
+
 
         public ActionResult Settings()
         {
@@ -43,6 +55,103 @@ namespace Forum.FørOpg2.Controllers
         {
 
             return View();
+        }
+        public ActionResult LogInPage()
+        {
+            return View();
+        }
+        [HttpPost]
+
+        public ActionResult LogInPage(Bruger U)
+        {
+            string UUsername = Crypto.Hash(U.Username.ToLower(), "MD5");
+            string UEmail = U.Email.ToLower();
+            string UParsword = Crypto.Hash(U.Parsword.ToLower(), "MD5");
+
+
+            try
+            {
+                BrugerTB cm = new BrugerTB
+                {
+                    Username = UUsername,
+                    Parsword = UParsword,
+                    Email = UEmail
+                };
+                Entities k = new Entities();
+
+                var kn = k.BrugerTB.FirstOrDefault(x => x.Username.ToLower() == UUsername);
+                var km = k.BrugerTB.FirstOrDefault(x => x.Email.ToLower() == UEmail);
+                if (kn == null)
+                {
+                    using (Entities e = new Entities())
+                    {
+
+
+                        e.BrugerTB.Add(cm);
+                        e.SaveChanges();
+                        Session["username"] = U.Username;
+
+                        HttpCookie cock = new HttpCookie(U.Username);
+                        cock.Value = U.Username;
+                        cock.Expires = DateTime.Now.AddMinutes(10);
+                        Response.Cookies.Add(cock);
+                        ViewBag.Message = "Successfully Registration Done";
+                    }
+                }
+                else if (kn != null)
+                {
+                    ViewBag.Message = "Der findes allerde en bruger med dette usernavn";
+                }
+                if (km != null)
+                {
+                    ViewBag.Message = "Der findes allerde en bruger med denne Email";
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+
+            return View();
+        }
+
+
+        public ActionResult LogInPage2()
+        {
+            return View();
+
+        }
+        [HttpPost]
+        public ActionResult LogInPage2(Bruger2 kl)
+        {
+            using (Entities k = new Entities())
+            {
+                var UserMail2 = Crypto.Hash(kl.UserMail.ToLower(), "MD5");
+                var Parsword2 = Crypto.Hash(kl.Parsword, "MD5");
+
+                var user = k.BrugerTB.FirstOrDefault(z => z.Email.ToLower() == UserMail2 || z.Username.ToLower() == UserMail2);
+                var pass = k.BrugerTB.FirstOrDefault(x => x.Parsword == Parsword2);
+                if (user != null && pass != null)
+                {
+                    ViewBag.Message = "Logget ind";
+                    Session["username"] = kl.UserMail;
+
+                    HttpCookie cock = new HttpCookie(kl.UserMail);
+                    cock.Value = kl.UserMail;
+                    cock.Expires = DateTime.Now.AddMinutes(10);
+                    Response.Cookies.Add(cock);
+                }
+                else if (user == null || pass == null)
+                {
+                    ViewBag.Message = "Forkert brugernavn/mail eller kode";
+
+                }
+            }
+            return View();
+
         }
     }
 }
