@@ -51,9 +51,9 @@ namespace Forum.FørOpg2.Controllers
 
             return View();
         }
-        public ActionResult Chatsite()
+       
+        public ActionResult Chat()
         {
-
             return View();
         }
         public ActionResult LogInPage()
