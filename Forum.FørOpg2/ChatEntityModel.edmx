@@ -103,7 +103,7 @@
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Parsword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="BeskedTB" Relationship="Self.FK_BeskedTB_BrugerTB" FromRole="BrugerTB" ToRole="BeskedTB" />
+          <NavigationProperty Name="BeskedTBs" Relationship="Self.FK_BeskedTB_BrugerTB" FromRole="BrugerTB" ToRole="BeskedTB" />
         </EntityType>
         <EntityType Name="ForumTB">
           <Key>
@@ -112,9 +112,9 @@
           <Property Name="Forum_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Forum_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Forum_beskrivelse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="BeskedTB" Relationship="Self.FK_BeskedTB_ForumTB" FromRole="ForumTB" ToRole="BeskedTB" />
+          <NavigationProperty Name="BeskedTBs" Relationship="Self.FK_BeskedTB_ForumTB" FromRole="ForumTB" ToRole="BeskedTB" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
+        <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
@@ -148,18 +148,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="BeskedTB" EntityType="Self.BeskedTB" />
-          <EntitySet Name="BrugerTB" EntityType="Self.BrugerTB" />
-          <EntitySet Name="ForumTB" EntityType="Self.ForumTB" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+        <EntityContainer Name="ChatDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BeskedTBs" EntityType="Self.BeskedTB" />
+          <EntitySet Name="BrugerTBs" EntityType="Self.BrugerTB" />
+          <EntitySet Name="ForumTBs" EntityType="Self.ForumTB" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <AssociationSet Name="FK_BeskedTB_BrugerTB" Association="Self.FK_BeskedTB_BrugerTB">
-            <End Role="BrugerTB" EntitySet="BrugerTB" />
-            <End Role="BeskedTB" EntitySet="BeskedTB" />
+            <End Role="BrugerTB" EntitySet="BrugerTBs" />
+            <End Role="BeskedTB" EntitySet="BeskedTBs" />
           </AssociationSet>
           <AssociationSet Name="FK_BeskedTB_ForumTB" Association="Self.FK_BeskedTB_ForumTB">
-            <End Role="ForumTB" EntitySet="ForumTB" />
-            <End Role="BeskedTB" EntitySet="BeskedTB" />
+            <End Role="ForumTB" EntitySet="ForumTBs" />
+            <End Role="BeskedTB" EntitySet="BeskedTBs" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -167,8 +167,8 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="LauTommyOmidModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="BeskedTB">
+        <EntityContainerMapping StorageEntityContainer="LauTommyOmidModelStoreContainer" CdmEntityContainer="ChatDatabaseEntities">
+          <EntitySetMapping Name="BeskedTBs">
             <EntityTypeMapping TypeName="LauTommyOmidModel.BeskedTB">
               <MappingFragment StoreEntitySet="BeskedTB">
                 <ScalarProperty Name="Besked_ID" ColumnName="Besked_ID" />
@@ -178,7 +178,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BrugerTB">
+          <EntitySetMapping Name="BrugerTBs">
             <EntityTypeMapping TypeName="LauTommyOmidModel.BrugerTB">
               <MappingFragment StoreEntitySet="BrugerTB">
                 <ScalarProperty Name="Bruger_ID" ColumnName="Bruger_ID" />
@@ -188,7 +188,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ForumTB">
+          <EntitySetMapping Name="ForumTBs">
             <EntityTypeMapping TypeName="LauTommyOmidModel.ForumTB">
               <MappingFragment StoreEntitySet="ForumTB">
                 <ScalarProperty Name="Forum_ID" ColumnName="Forum_ID" />
@@ -198,7 +198,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="LauTommyOmidModel.sysdiagrams">
+            <EntityTypeMapping TypeName="LauTommyOmidModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -222,7 +222,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Forum.FørOpg2.Models1
+namespace Forum.FørOpg2
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class ChatDatabaseEntities : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public ChatDatabaseEntities()
+            : base("name=ChatDatabaseEntities")
         {
         }
     
@@ -25,9 +25,9 @@ namespace Forum.FørOpg2.Models1
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<BeskedTB> BeskedTB { get; set; }
-        public virtual DbSet<BrugerTB> BrugerTB { get; set; }
-        public virtual DbSet<ForumTB> ForumTB { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<BeskedTB> BeskedTBs { get; set; }
+        public virtual DbSet<BrugerTB> BrugerTBs { get; set; }
+        public virtual DbSet<ForumTB> ForumTBs { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

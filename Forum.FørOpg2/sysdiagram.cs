@@ -7,12 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Forum.FørOpg2.Models1
+namespace Forum.FørOpg2
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class sysdiagram
     {
         public string name { get; set; }
         public int principal_id { get; set; }

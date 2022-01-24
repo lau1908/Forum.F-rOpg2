@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Forum.FørOpg2.Models1
+namespace Forum.FørOpg2
 {
     using System;
     using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Forum.FørOpg2.Models1
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ForumTB()
         {
-            this.BeskedTB = new HashSet<BeskedTB>();
+            this.BeskedTBs = new HashSet<BeskedTB>();
         }
     
         public int Forum_ID { get; set; }
@@ -25,6 +25,6 @@ namespace Forum.FørOpg2.Models1
         public string Forum_beskrivelse { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BeskedTB> BeskedTB { get; set; }
+        public virtual ICollection<BeskedTB> BeskedTBs { get; set; }
     }
 }

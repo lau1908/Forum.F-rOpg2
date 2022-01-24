@@ -87,7 +87,7 @@
                 <ul id="discussion"> 
                 </ul>
                 <div id="txtInput" style="display: flex; gap: 10px;">
-                    <input type="text" id="message" />
+                    <input type="text" id="message"/>
                     <input type="button" id="sendmessage" value="Send" />
                 </div>
                
@@ -120,7 +120,6 @@
                 
             };
             // Get the user name and store it to prepend to messages.
-            $('#displayname').val(prompt('Enter your name:', ''));
             // Set initial focus to message input box.
             $('#message').focus();
             // Start the connection.
@@ -131,18 +130,19 @@
                     // Clear text box and reset focus for next comment.
                     $('#message').val('').focus();
                 });
-          
-
-                if (event.keyCode === 13) { //13 er koden for "Enter" //virker ikke
-                    // Call the Send method on the hub.
-                    chat.server.send($('#displayname').val(), $('#message').val());
-                    // Clear text box and reset focus for next comment.
-                    $('#message').val('').focus();
-                }
+                $('#message').keyup(function (e) {
+                    if (e.keyCode == 13) {
+                        // Call the Send method on the hub.
+                        chat.server.send($('#displayname').val(), $('#message').val());
+                        // Clear text box and reset focus for next comment.
+                        $('#message').val('').focus();
+                    }
+                })
 
             });
 
         });
+
         // This optional function html-encodes messages for display in the page.
         function htmlEncode(value) {
             var encodedValue = $('<div />').text(value).html();

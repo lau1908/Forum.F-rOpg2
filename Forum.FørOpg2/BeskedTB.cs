@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Forum.FørOpg2.Models1
+namespace Forum.FørOpg2
 {
     using System;
     using System.Collections.Generic;

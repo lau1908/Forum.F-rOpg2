@@ -1,5 +1,6 @@
 ﻿using Owin;
 using Microsoft.Owin;
+using Microsoft.AspNetCore.Authentication;
 [assembly: OwinStartup(typeof(SignalRChat.Startup))]
 namespace SignalRChat
     {

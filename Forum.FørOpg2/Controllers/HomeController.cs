@@ -5,14 +5,15 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using Forum.FørOpg2.Models1;
-using System.Data.Entity.Validation;
-
-
+using System.Data.Entity;
+using System.Diagnostics;
 
 namespace Forum.FørOpg2.Controllers
 {
+
     public class HomeController : Controller
     {
+
         public ActionResult Index()
         {
             return View();
@@ -54,7 +55,14 @@ namespace Forum.FørOpg2.Controllers
        
         public ActionResult Chat()
         {
-            return View();
+            if (Session["username"] != null)
+            {
+                Debug.WriteLine(Session["username"]);
+                return View();
+            } else
+            {
+                return new HttpStatusCodeResult(401);
+            }
         }
         public ActionResult LogInPage()
         {
@@ -77,21 +85,19 @@ namespace Forum.FørOpg2.Controllers
                     Parsword = UParsword,
                     Email = UEmail
                 };
-                Entities k = new Entities();
+                ChatDatabaseEntities k = new ChatDatabaseEntities();
 
-                var kn = k.BrugerTB.FirstOrDefault(x => x.Username.ToLower() == UUsername);
-                var km = k.BrugerTB.FirstOrDefault(x => x.Email.ToLower() == UEmail);
+                var kn = k.BrugerTBs.FirstOrDefault(x => x.Username.ToLower() == UUsername);
+                var km = k.BrugerTBs.FirstOrDefault(x => x.Email.ToLower() == UEmail);
                 if (kn == null)
                 {
-                    using (Entities e = new Entities())
+                    using (ChatDatabaseEntities e = new ChatDatabaseEntities())
                     {
-
-
-                        e.BrugerTB.Add(cm);
+                        e.BrugerTBs.Add(cm);
                         e.SaveChanges();
                         Session["username"] = U.Username;
 
-                        HttpCookie cock = new HttpCookie(U.Username);
+                        HttpCookie cock = new HttpCookie("username");
                         cock.Value = U.Username;
                         cock.Expires = DateTime.Now.AddMinutes(10);
                         Response.Cookies.Add(cock);
@@ -127,19 +133,19 @@ namespace Forum.FørOpg2.Controllers
         [HttpPost]
         public ActionResult LogInPage2(Bruger2 kl)
         {
-            using (Entities k = new Entities())
+            using (ChatDatabaseEntities k = new ChatDatabaseEntities())
             {
                 var UserMail2 = Crypto.Hash(kl.UserMail.ToLower(), "MD5");
                 var Parsword2 = Crypto.Hash(kl.Parsword, "MD5");
 
-                var user = k.BrugerTB.FirstOrDefault(z => z.Email.ToLower() == UserMail2 || z.Username.ToLower() == UserMail2);
-                var pass = k.BrugerTB.FirstOrDefault(x => x.Parsword == Parsword2);
+                var user = k.BrugerTBs.FirstOrDefault(z => z.Email.ToLower() == UserMail2 || z.Username.ToLower() == UserMail2);
+                var pass = k.BrugerTBs.FirstOrDefault(x => x.Parsword == Parsword2);
                 if (user != null && pass != null)
                 {
                     ViewBag.Message = "Logget ind";
                     Session["username"] = kl.UserMail;
 
-                    HttpCookie cock = new HttpCookie(kl.UserMail);
+                    HttpCookie cock = new HttpCookie("username");
                     cock.Value = kl.UserMail;
                     cock.Expires = DateTime.Now.AddMinutes(10);
                     Response.Cookies.Add(cock);
