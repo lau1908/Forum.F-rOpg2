@@ -130,6 +130,7 @@
                     // Clear text box and reset focus for next comment.
                     $('#message').val('').focus();
                 });
+                
                 $('#message').keyup(function (e) {
                     if (e.keyCode == 13) {
                         // Call the Send method on the hub.

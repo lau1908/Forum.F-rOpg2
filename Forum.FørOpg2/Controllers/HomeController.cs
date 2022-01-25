@@ -63,6 +63,8 @@ namespace Forum.FørOpg2.Controllers
             {
                 return new HttpStatusCodeResult(401);
             }
+            
+
         }
         public ActionResult LogInPage()
         {
