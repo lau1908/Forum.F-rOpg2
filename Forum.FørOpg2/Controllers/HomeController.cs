@@ -14,34 +14,86 @@ namespace Forum.FørOpg2.Controllers
     public class HomeController : Controller
     {
 
-        public ActionResult Index()
+        public ActionResult LogInPage2()
         {
             return View();
+
         }
+
+        public ActionResult Index()
+        {
+            if (Session["username"] != null)
+            {
+                Debug.WriteLine(Session["username"]);
+                return View();
+            }
+            else
+            {
+                //return new HttpStatusCodeResult(401);
+                return RedirectToAction("LogInPage2");
+            }
+
+        }
+
 
         public ActionResult Friends()
         {
-            
-            return View();
+            if (Session["username"] != null)
+            {
+                Debug.WriteLine(Session["username"]);
+                return View();
+            }
+            else
+            {
+                //return new HttpStatusCodeResult(401);
+                return RedirectToAction("LogInPage2");
+            }
+
+
         }
 
         public ActionResult Explore()
         {
-            
 
-            return View();
+
+            if (Session["username"] != null)
+            {
+                Debug.WriteLine(Session["username"]);
+                return View();
+            }
+            else
+            {
+                //return new HttpStatusCodeResult(401);
+                return RedirectToAction("LogInPage2");
+            }
         }
 
         public ActionResult Spotify()
         {
-
-
-            return View();
-        } public ActionResult GammingChat()
+            if (Session["username"] != null)
+            {
+                Debug.WriteLine(Session["username"]);
+                return View();
+            }
+            else
+            {
+                //return new HttpStatusCodeResult(401);
+                return RedirectToAction("LogInPage2");
+            }
+        }
+        public ActionResult GammingChat()
         {
 
-
-            return View();
+            if (Session["username"] != null)
+            {
+                Debug.WriteLine(Session["username"]);
+                return View();
+            }
+            else
+            {
+                //return new HttpStatusCodeResult(401);
+                return RedirectToAction("LogInPage2");
+            }
         }
 
 
@@ -49,22 +101,30 @@ namespace Forum.FørOpg2.Controllers
         public ActionResult Settings()
         {
 
-
-            return View();
+            if (Session["username"] != null)
+            {
+                Debug.WriteLine(Session["username"]);
+                return View();
+            }
+            else
+            {
+                //return new HttpStatusCodeResult(401);
+                return RedirectToAction("LogInPage2");
+            }
         }
-       
+
         public ActionResult Chat()
         {
             if (Session["username"] != null)
             {
                 Debug.WriteLine(Session["username"]);
                 return View();
-            } else
-            {
-                return new HttpStatusCodeResult(401);
             }
-            
-
+            else
+            {
+                //return new HttpStatusCodeResult(401);
+                return RedirectToAction("LogInPage2");
+            }
         }
         public ActionResult LogInPage()
         {
@@ -104,6 +164,7 @@ namespace Forum.FørOpg2.Controllers
                         cock.Expires = DateTime.Now.AddMinutes(10);
                         Response.Cookies.Add(cock);
                         ViewBag.Message = "Successfully Registration Done";
+                        return RedirectToAction("Index");
                     }
                 }
                 else if (kn != null)
@@ -127,11 +188,7 @@ namespace Forum.FørOpg2.Controllers
         }
 
 
-        public ActionResult LogInPage2()
-        {
-            return View();
 
-        }
         [HttpPost]
         public ActionResult LogInPage2(Bruger2 kl)
         {
@@ -151,6 +208,7 @@ namespace Forum.FørOpg2.Controllers
                     cock.Value = kl.UserMail;
                     cock.Expires = DateTime.Now.AddMinutes(10);
                     Response.Cookies.Add(cock);
+                    return RedirectToAction("Index");
                 }
                 else if (user == null || pass == null)
                 {
