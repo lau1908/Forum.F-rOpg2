@@ -280,6 +280,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models1\beskeder.cs" />
     <Compile Include="Models1\Bruger.cs" />
     <Compile Include="Models1\Bruger2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

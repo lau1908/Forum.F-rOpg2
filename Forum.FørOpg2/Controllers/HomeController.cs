@@ -158,6 +158,7 @@ namespace Forum.FørOpg2.Controllers
                         e.BrugerTBs.Add(cm);
                         e.SaveChanges();
                         Session["username"] = U.Username;
+                        
 
                         HttpCookie cock = new HttpCookie("username");
                         cock.Value = U.Username;
@@ -203,7 +204,7 @@ namespace Forum.FørOpg2.Controllers
                 {
                     ViewBag.Message = "Logget ind";
                     Session["username"] = kl.UserMail;
-
+                    
                     HttpCookie cock = new HttpCookie("username");
                     cock.Value = kl.UserMail;
                     cock.Expires = DateTime.Now.AddMinutes(10);
