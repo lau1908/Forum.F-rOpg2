@@ -7,13 +7,15 @@ using System.Web.Mvc;
 using Forum.FørOpg2.Models1;
 using System.Data.Entity;
 using System.Diagnostics;
+using Microsoft.AspNet.SignalR;
+using SignalRChat;
 
 namespace Forum.FørOpg2.Controllers
 {
 
     public class HomeController : Controller
     {
-
+        IHubContext chathub = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
         public ActionResult LogInPage2()
         {
             return View();
@@ -22,9 +24,9 @@ namespace Forum.FørOpg2.Controllers
 
         public ActionResult Index()
         {
-            if (Session["username"] != null)
+            if (Session["uid"] != null)
             {
-                Debug.WriteLine(Session["username"]);
+                Debug.WriteLine(Session["uid"]);
                 return View();
             }
             else
@@ -38,9 +40,9 @@ namespace Forum.FørOpg2.Controllers
 
         public ActionResult Friends()
         {
-            if (Session["username"] != null)
+            if (Session["uid"] != null)
             {
-                Debug.WriteLine(Session["username"]);
+                Debug.WriteLine(Session["uid"]);
                 return View();
             }
             else
@@ -56,9 +58,9 @@ namespace Forum.FørOpg2.Controllers
         {
 
 
-            if (Session["username"] != null)
+            if (Session["uid"] != null)
             {
-                Debug.WriteLine(Session["username"]);
+                Debug.WriteLine(Session["uid"]);
                 return View();
             }
             else
@@ -70,9 +72,9 @@ namespace Forum.FørOpg2.Controllers
 
         public ActionResult Spotify()
         {
-            if (Session["username"] != null)
+            if (Session["uid"] != null)
             {
-                Debug.WriteLine(Session["username"]);
+                Debug.WriteLine(Session["uid"]);
                 return View();
             }
             else
@@ -84,9 +86,9 @@ namespace Forum.FørOpg2.Controllers
         public ActionResult GammingChat()
         {
 
-            if (Session["username"] != null)
+            if (Session["uid"] != null)
             {
-                Debug.WriteLine(Session["username"]);
+                Debug.WriteLine(Session["uid"]);
                 return View();
             }
             else
@@ -101,9 +103,9 @@ namespace Forum.FørOpg2.Controllers
         public ActionResult Settings()
         {
 
-            if (Session["username"] != null)
+            if (Session["uid"] != null)
             {
-                Debug.WriteLine(Session["username"]);
+                Debug.WriteLine(Session["uid"]);
                 return View();
             }
             else
@@ -113,11 +115,39 @@ namespace Forum.FørOpg2.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult Chat(string message) //variablen message indeholder content af beskeden 
+        {
+           if (Session["uid"] != null)
+            {
+                Debug.WriteLine("Herer");
+                int uid = Int32.Parse(Session["uid"].ToString());
+                Debug.WriteLine(Session["uid"]);
+                 ChatDatabaseEntities databasemanager = new ChatDatabaseEntities();//jeg erklærer en entiti af min database til objektet "databaseManager"
+                BrugerTB bruger = databasemanager.BrugerTBs.FirstOrDefault(e => e.Bruger_ID == uid);
+
+                BeskedTB besked = new BeskedTB() {
+                    Besked_content = message,
+                    Bruger_ID = bruger.Bruger_ID,
+                    Forum_ID = 1,
+                };
+                databasemanager.BeskedTBs.Add(besked);
+                databasemanager.SaveChanges();
+                chathub.Clients.All.addNewMessageToPage(bruger.Username, message);
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LogInPage2");
+            }
+
+        }
+
         public ActionResult Chat()
         {
-            if (Session["username"] != null)
+            if (Session["uid"] != null)
             {
-                Debug.WriteLine(Session["username"]);
+                Debug.WriteLine(Session["uid"]);
                 return View();
             }
             else
@@ -134,9 +164,9 @@ namespace Forum.FørOpg2.Controllers
 
         public ActionResult LogInPage(Bruger U)
         {
-            string UUsername = Crypto.Hash(U.Username.ToLower(), "MD5");
-            string UEmail = U.Email.ToLower();
-            string UParsword = Crypto.Hash(U.Parsword.ToLower(), "MD5");
+            string UUsername = U.Username;
+            string UEmail = U.Email;
+            string UParsword = Crypto.Hash(U.Parsword, "MD5");
 
 
             try
@@ -149,15 +179,15 @@ namespace Forum.FørOpg2.Controllers
                 };
                 ChatDatabaseEntities k = new ChatDatabaseEntities();
 
-                var kn = k.BrugerTBs.FirstOrDefault(x => x.Username.ToLower() == UUsername);
-                var km = k.BrugerTBs.FirstOrDefault(x => x.Email.ToLower() == UEmail);
+                var kn = k.BrugerTBs.FirstOrDefault(x => x.Username == UUsername);
+                var km = k.BrugerTBs.FirstOrDefault(x => x.Email == UEmail);
                 if (kn == null)
                 {
                     using (ChatDatabaseEntities e = new ChatDatabaseEntities())
                     {
-                        e.BrugerTBs.Add(cm);
+                        var nyBruger = e.BrugerTBs.Add(cm);
                         e.SaveChanges();
-                        Session["username"] = U.Username;
+                        Session["uid"] = nyBruger.Bruger_ID;
                         
 
                         HttpCookie cock = new HttpCookie("username");
@@ -195,15 +225,15 @@ namespace Forum.FørOpg2.Controllers
         {
             using (ChatDatabaseEntities k = new ChatDatabaseEntities())
             {
-                var UserMail2 = Crypto.Hash(kl.UserMail.ToLower(), "MD5");
+                var UserMail2 = kl.UserMail;
                 var Parsword2 = Crypto.Hash(kl.Parsword, "MD5");
 
-                var user = k.BrugerTBs.FirstOrDefault(z => z.Email.ToLower() == UserMail2 || z.Username.ToLower() == UserMail2);
+                var user = k.BrugerTBs.FirstOrDefault(z => z.Email == UserMail2 || z.Username == UserMail2);
                 var pass = k.BrugerTBs.FirstOrDefault(x => x.Parsword == Parsword2);
                 if (user != null && pass != null)
                 {
                     ViewBag.Message = "Logget ind";
-                    Session["username"] = kl.UserMail;
+                    Session["uid"] = user.Bruger_ID;
                     
                     HttpCookie cock = new HttpCookie("username");
                     cock.Value = kl.UserMail;
