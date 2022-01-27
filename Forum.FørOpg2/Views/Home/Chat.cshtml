@@ -87,6 +87,13 @@
             <div class="container">
                 <input type="hidden" id="displayname" value="@Session["username"]" />
                 <ul id="discussion">
+                    @foreach(var item in ViewBag.Beskeder)
+                     {
+                        <li><strong>@item.Bruger_ID</strong>
+                        :@item.Besked_content
+                            
+                    </li>
+                     }
                 </ul>
                 <div id="txtInput" style="display: flex; gap: 10px;">
                     <input type="text" id="message"/>

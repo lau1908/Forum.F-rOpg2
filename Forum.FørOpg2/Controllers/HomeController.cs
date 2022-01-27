@@ -133,8 +133,8 @@ namespace Forum.FørOpg2.Controllers
                 };
                 databasemanager.BeskedTBs.Add(besked);
                 databasemanager.SaveChanges();
-                chathub.Clients.All.addNewMessageToPage(bruger.Username, message);
-                return View();
+                
+                return View(chathub.Clients.All.addNewMessageToPage(bruger.Username, message));
             }
             else
             {
@@ -145,6 +145,12 @@ namespace Forum.FørOpg2.Controllers
 
         public ActionResult Chat()
         {
+            ChatDatabaseEntities e = new ChatDatabaseEntities();
+            List<BeskedTB> Beskederne = new List<BeskedTB>();
+            Beskederne= e.BeskedTBs.Where(x => x.Forum_ID == 1).ToList();
+            ViewBag.beskeder = Beskederne;
+    
+           
             if (Session["uid"] != null)
             {
                 Debug.WriteLine(Session["uid"]);
@@ -154,7 +160,9 @@ namespace Forum.FørOpg2.Controllers
             {
                 //return new HttpStatusCodeResult(401);
                 return RedirectToAction("LogInPage2");
+
             }
+           
         }
         public ActionResult LogInPage()
         {
