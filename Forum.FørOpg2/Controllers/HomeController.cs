@@ -24,14 +24,13 @@ namespace Forum.FørOpg2.Controllers
 
         public ActionResult Index()
         {
-            if (Session["uid"] != null)
+            if (Session["uid"] != null)//Tjekker om brugern har en konto med et ID, hvis ja bliver siden vist 
             {
                 Debug.WriteLine(Session["uid"]);
                 return View();
             }
-            else
+            else //hvis nej bliver de sendt til loginsiden 
             {
-                //return new HttpStatusCodeResult(401);
                 return RedirectToAction("LogInPage2");
             }
 
@@ -65,7 +64,6 @@ namespace Forum.FørOpg2.Controllers
             }
             else
             {
-                //return new HttpStatusCodeResult(401);
                 return RedirectToAction("LogInPage2");
             }
         }
@@ -79,7 +77,6 @@ namespace Forum.FørOpg2.Controllers
             }
             else
             {
-                //return new HttpStatusCodeResult(401);
                 return RedirectToAction("LogInPage2");
             }
         }
@@ -120,21 +117,19 @@ namespace Forum.FørOpg2.Controllers
         {
            if (Session["uid"] != null)
             {
-                Debug.WriteLine("Herer");
-                int uid = Int32.Parse(Session["uid"].ToString());
-                Debug.WriteLine(Session["uid"]);
+                int uid = Int32.Parse(Session["uid"].ToString());//tildeler variablen "uid" brugerens ID
                  ChatDatabaseEntities databasemanager = new ChatDatabaseEntities();//jeg erklærer en entiti af min database til objektet "databaseManager"
-                BrugerTB bruger = databasemanager.BrugerTBs.FirstOrDefault(e => e.Bruger_ID == uid);
+                BrugerTB bruger = databasemanager.BrugerTBs.FirstOrDefault(e => e.Bruger_ID == uid);//henter brugerns data fra databasen ved hjælp af brugerens ID
 
-                BeskedTB besked = new BeskedTB() {
-                    Besked_content = message,
-                    Bruger_ID = bruger.Bruger_ID,
-                    Forum_ID = 1,
+                BeskedTB besked = new BeskedTB() { // Opretter et objekt hvori vi gemmer den sendte besked, ID'et på brugern der sendte beskeden samt forum ID 
+                    Besked_content = message, 
+                    Bruger_ID = bruger.Bruger_ID, 
+                    Forum_ID = 1,//kun gamingchatten virker, da de andre ikke er sat op, gamingchatten har ID'et 1
                 };
-                databasemanager.BeskedTBs.Add(besked);
-                databasemanager.SaveChanges();
+                databasemanager.BeskedTBs.Add(besked);//Sender objektet til databasen 
+                databasemanager.SaveChanges();//gemmer 
                 
-                return View(chathub.Clients.All.addNewMessageToPage(bruger.Username, message));
+                return View(chathub.Clients.All.addNewMessageToPage(bruger.Username, message));//retunere et view med brugernavn samt beskeden som outputargument 
             }
             else
             {
@@ -145,11 +140,7 @@ namespace Forum.FørOpg2.Controllers
 
         public ActionResult Chat()
         {
-            ChatDatabaseEntities e = new ChatDatabaseEntities();
-            List<BeskedTB> Beskederne = new List<BeskedTB>();
-            Beskederne= e.BeskedTBs.Where(x => x.Forum_ID == 1).ToList();
-            ViewBag.beskeder = Beskederne;
-    
+          
            
             if (Session["uid"] != null)
             {
