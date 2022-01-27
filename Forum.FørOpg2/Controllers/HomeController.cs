@@ -161,54 +161,54 @@ namespace Forum.FørOpg2.Controllers
         }
         [HttpPost]
 
-        public ActionResult LogInPage(Bruger U)
+        public ActionResult LogInPage(Bruger U) // en post metode til registering af bruger, så det kan sættes ind i databasen, tager udgangspunkt i klassen Bruger
         {
-            string UUsername = U.Username;
+            string UUsername = U.Username; //en string bliver sat lig med, username som kommer fra klassen bruger, som kommer fra hvad brugeren har indtastet
             string UEmail = U.Email;
-            string UParsword = Crypto.Hash(U.Parsword, "MD5");
+            string UParsword = Crypto.Hash(U.Parsword, "MD5"); //hash af kode
 
 
             try
             {
-                BrugerTB cm = new BrugerTB
+                BrugerTB cm = new BrugerTB // der bliver lavet et nyt BrugerTB, hvor de forskellige fra tablet bliver sat lig med, de oplysninger brugeren har indtastet
                 {
                     Username = UUsername,
                     Parsword = UParsword,
                     Email = UEmail
                 };
-                ChatDatabaseEntities k = new ChatDatabaseEntities();
+                ChatDatabaseEntities k = new ChatDatabaseEntities(); //jeg erklærer en entiti af min database til objektet "k"
 
-                var kn = k.BrugerTBs.FirstOrDefault(x => x.Username == UUsername);
-                var km = k.BrugerTBs.FirstOrDefault(x => x.Email == UEmail);
-                if (kn == null)
+                var kn = k.BrugerTBs.FirstOrDefault(x => x.Username == UUsername); //tjekker om der allerede er en bruger med det samme brugernavn
+                var km = k.BrugerTBs.FirstOrDefault(x => x.Email == UEmail); //tjekker om der allerede er en bruger med samme email
+                if (kn == null && km==null) //hvis en bruger med dette brugernavn ikke findes
                 {
-                    using (ChatDatabaseEntities e = new ChatDatabaseEntities())
+                    using (ChatDatabaseEntities e = new ChatDatabaseEntities()) //jeg erklærer en entiti af min database til objektet "e"
                     {
-                        var nyBruger = e.BrugerTBs.Add(cm);
-                        e.SaveChanges();
-                        Session["uid"] = nyBruger.Bruger_ID;
+                        var nyBruger = e.BrugerTBs.Add(cm); //der er en variabel nybruger, hvor disse informationer bliver sat ind i databasen
+                        e.SaveChanges(); //her bliver det egentlig saved
+                        Session["uid"] = nyBruger.Bruger_ID; //laver en session med brugerens id
                         
 
-                        HttpCookie cock = new HttpCookie("username");
-                        cock.Value = U.Username;
-                        cock.Expires = DateTime.Now.AddMinutes(10);
-                        Response.Cookies.Add(cock);
-                        ViewBag.Message = "Successfully Registration Done";
-                        return RedirectToAction("Index");
+                        HttpCookie cock = new HttpCookie("username"); //der bliver lavet en cookie som indeholder brugernavnet
+                        cock.Value = U.Username; 
+                        cock.Expires = DateTime.Now.AddMinutes(10); //den holder i 10 minutter
+                        Response.Cookies.Add(cock); 
+                        ViewBag.Message = "Successfully Registration Done"; //der bliver sendt en message
+                        return RedirectToAction("Index"); //bliver sendt til index siden
                     }
                 }
-                else if (kn != null)
+                else if (kn != null) //hvis der allerede findes en bruger med dette brugernavn
                 {
-                    ViewBag.Message = "Der findes allerde en bruger med dette usernavn";
+                    ViewBag.Message = "Der findes allerde en bruger med dette usernavn"; 
                 }
-                if (km != null)
+                if (km != null)//hvis der allerede findes en bruger med dette brugernavn
                 {
                     ViewBag.Message = "Der findes allerde en bruger med denne Email";
                 }
 
 
             }
-            catch (Exception ex)
+            catch (Exception ex) // egentlig en blok der "fanger" de undtagelser der sker, disse undtagelser er dog noget man allerede "forventer" 
             {
                 throw ex;
 
@@ -220,27 +220,27 @@ namespace Forum.FørOpg2.Controllers
 
 
         [HttpPost]
-        public ActionResult LogInPage2(Bruger2 kl)
+        public ActionResult LogInPage2(Bruger2 kl) //en post metode til login af brugeren, så det kan sættes ind i databasen, tager udgangspunkt i klassen Bruger2
         {
-            using (ChatDatabaseEntities k = new ChatDatabaseEntities())
+            using (ChatDatabaseEntities k = new ChatDatabaseEntities()) //jeg erklærer en entiti af min database til objektet "k"
             {
-                var UserMail2 = kl.UserMail;
-                var Parsword2 = Crypto.Hash(kl.Parsword, "MD5");
+                var UserMail2 = kl.UserMail; //usermail inde fra Bruger2 bliver sat lig med variablen
+                var Parsword2 = Crypto.Hash(kl.Parsword, "MD5"); // koden bliver hashet
 
-                var user = k.BrugerTBs.FirstOrDefault(z => z.Email == UserMail2 || z.Username == UserMail2);
-                var pass = k.BrugerTBs.FirstOrDefault(x => x.Parsword == Parsword2);
-                if (user != null && pass != null)
+                var user = k.BrugerTBs.FirstOrDefault(z => z.Email == UserMail2 || z.Username == UserMail2); //tjekker om informationen, matcher enten et brugernavn eller email
+                var pass = k.BrugerTBs.FirstOrDefault(x => x.Parsword == Parsword2); //tjekker om informationen, matcher en adgangskode i db'en
+                if (user != null && pass != null) //hvis det hele matcher
                 {
-                    ViewBag.Message = "Logget ind";
-                    Session["uid"] = user.Bruger_ID;
+                    ViewBag.Message = "Logget ind"; //bliver sendt en besked ind
+                    Session["uid"] = user.Bruger_ID; // der bliver lavet en session, som indeholder brugerens id
                     
-                    HttpCookie cock = new HttpCookie("username");
+                    HttpCookie cock = new HttpCookie("username");//der bliver lavet en cookie som indeholder brugernavnet
                     cock.Value = kl.UserMail;
-                    cock.Expires = DateTime.Now.AddMinutes(10);
+                    cock.Expires = DateTime.Now.AddMinutes(10); //den holder i 10 minutter
                     Response.Cookies.Add(cock);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index"); //bliver sendt til index siden
                 }
-                else if (user == null || pass == null)
+                else if (user == null || pass == null) // hvis der ikke er noget der matcher kommer denne besked op
                 {
                     ViewBag.Message = "Forkert brugernavn/mail eller kode";
 

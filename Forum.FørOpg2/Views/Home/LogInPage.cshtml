@@ -1,4 +1,4 @@
-﻿@model Forum.FørOpg2.Models1.Bruger
+﻿@model Forum.FørOpg2.Models1.Bruger //her bliver der erklæret at vi gør brug af klassen Bruger
 
 @{
     ViewBag.Title = "LogInPage";
@@ -7,70 +7,70 @@
 <h2>Sign Up Page</h2>
 
 
-@using (Html.BeginForm("LogInPage", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("LogInPage", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))//her bliver der erklæret at der er brugt Html.Beginform, her bliver der erklæret at det er LogInPage2 fra homecontrolleren der bliver brugt, hvor der er en post metode
 {
-    @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()//dette er for noget sikkerhed, så vi ved at brugeren har været inde på siden, før brugeren indstaster oplysninger
 
-    if (ViewBag.Message != null)
+    if (ViewBag.Message != null)/her tjekkes der er om der er sendt nogen message, inde fra Homecontrolleren, og hvad denne besked indeholder, hvor der sker noget forskelligt altafhængigt af hvad der bliver sendt
     {
         if (ViewBag.Message == "Der findes allerde en bruger med dette usernavn")
         {
-            <div style="border:solid 1px red">
-                @ViewBag.Message
-            </div>
+<div style="border:solid 1px red">
+    @ViewBag.Message
+</div>
         }
         else if (ViewBag.Message == "Der findes allerde en bruger med denne Email")
         {
 
-            <div style="border:solid 1px red">
-                @ViewBag.Message
-            </div>
+<div style="border:solid 1px red">
+    @ViewBag.Message
+</div>
 
         }
         else
         {
 
-            <div style="border:solid 1px green">
-                @ViewBag.Message
-            </div>
+<div style="border:solid 1px green">
+    @ViewBag.Message
+</div>
         }
     }
 
-            <div class="form-horizontal">
-                <h4>BrugerTB</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
+<div class="form-horizontal">
+    <h4>BrugerTB</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" }) //viser egentlig error message for hvert felt
+    <div class="form-group">
 
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", placeholder = "Username" } })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", placeholder = "Username" } }) //et felt til at indtaste username
 
-                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" }) //bliver vist en error message for det felt
+        </div>
+    </div>
 
-                <div class="form-group">
+    <div class="form-group">
 
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Parsword, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
-                        @Html.ValidationMessageFor(model => model.Parsword, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Parsword, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } }) //et felt til at indtaste password
+            @Html.ValidationMessageFor(model => model.Parsword, "", new { @class = "text-danger" })//error messsage
+        </div>
+    </div>
 
-                <div class="form-group">
+    <div class="form-group">
 
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "E-mail" } })
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "E-mail" } }) //et felt til indtastning af email
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" }) //error messsage
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" /> //submit knappen
+        </div>
+    </div>
+</div>
 }
 
 

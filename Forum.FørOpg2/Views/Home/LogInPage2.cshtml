@@ -14,14 +14,14 @@
 
 
 <div class="kk">
-    @using (Html.BeginForm("LogInPage2", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("LogInPage2", "Home", FormMethod.Post, new { enctype = "multipart/form-data" })) //her bliver der erklæret at der er brugt Html.Beginform, her bliver der erklæret at det er LogInPage2 fra homecontrolleren der bliver brugt, hvor der er en post metode
     {
-    @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken() //dette er for noget sikkerhed, så vi ved at brugeren har været inde på siden, før brugeren indstaster oplysninger
 
     <div class="form-group centerlook" style="margin-left: 45%;">
         <h1> Login </h1>
     </div>
-    if (ViewBag.Message != null)
+    if (ViewBag.Message != null) //her tjekkes der er om der er sendt nogen message, inde fra Homecontrolleren, og hvad denne besked indeholder, hvor der sker noget forskelligt altafhængigt af hvad der bliver sendt
     {
     if (ViewBag.Message == "Forkert brugernavn/mail eller kode")
     {
@@ -40,19 +40,19 @@
 
     <div class="form-group centerlook" style="margin-left:45%;">
 
-        @Html.EditorFor(model => model.UserMail, new { htmlAttributes = new { @class = "form-control", placeholder = "Username or Email" } })
-        @Html.ValidationMessageFor(model => model.UserMail)
-    </div>
+        @Html.EditorFor(model => model.UserMail, new { htmlAttributes = new { @class = "form-control", placeholder = "Username or Email" } }) //Det her er en editor hvor man kan skrive, sit brugernavn/email ind
+        @Html.ValidationMessageFor(model => model.UserMail) //her kommer der en besked, hvor der bliver skrevet hvis der er en fejl
+    </div> 
     <div class="form-group centerlook" style="margin-left:45%;">
 
-        @Html.EditorFor(model => model.Parsword, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
-        @Html.ValidationMessageFor(model => model.Parsword)
+        @Html.EditorFor(model => model.Parsword, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } }) //det samme som ovenover bare med adgangskode
+        @Html.ValidationMessageFor(model => model.Parsword) //her kommer der en besked, alt afhængigt af hvad man har valgt der skal stå
 
     </div>
-    <span>Don't have an account <a href="LogInPage"><span style="color:blue;">SIGN UP</span></a></span>
+    <span>Don't have an account <a href="LogInPage"><span style="color:blue;">SIGN UP</span></a></span> // et link til sign up siden
     <div class="loginbtn" style="margin-left: 45%;">
 
-        <input type="submit" value="Login" class="btn btn-primary" />
+        <input type="submit" value="Login" class="btn btn-primary" /> // en knap som så sumbitter det hele
 
     </div>
 

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\lau\Source\Repos\lau1908\Forum.F-rOpg2\Forum.FørOpg2\ChatEntityModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\omid6\source\repos\lau1908\Forum.F-rOpg2\Forum.FørOpg2\ChatEntityModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
