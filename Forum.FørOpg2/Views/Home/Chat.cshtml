@@ -124,7 +124,7 @@
             };
             // Get the user name and store it to prepend to messages.
             // Set initial focus to message input box.
-            $('#message').focus();
+            $('#message').focus();  
             // Start the connection.
             $.connection.hub.start().done(function () {
 
@@ -134,6 +134,7 @@
             $('#message').keyup(function (e) {
                 if (e.keyCode == 13) {
                     sendMSG()
+                    document.getElementById("message").value = " ";
                 }
             })
 
