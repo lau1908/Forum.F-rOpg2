@@ -118,7 +118,7 @@ namespace Forum.FørOpg2.Controllers
            if (Session["uid"] != null)
             {
                 int uid = Int32.Parse(Session["uid"].ToString());//tildeler variablen "uid" brugerens ID
-                 ChatDatabaseEntities databasemanager = new ChatDatabaseEntities();//jeg erklærer en entiti af min database til objektet "databaseManager"
+                ChatDatabaseEntities databasemanager = new ChatDatabaseEntities();//jeg erklærer en entiti af min database til objektet "databaseManager"
                 BrugerTB bruger = databasemanager.BrugerTBs.FirstOrDefault(e => e.Bruger_ID == uid);//henter brugerns data fra databasen ved hjælp af brugerens ID
 
                 BeskedTB besked = new BeskedTB() { // Opretter et objekt hvori vi gemmer den sendte besked, ID'et på brugern der sendte beskeden samt forum ID 
@@ -144,14 +144,12 @@ namespace Forum.FørOpg2.Controllers
            
             if (Session["uid"] != null)
             {
-                Debug.WriteLine(Session["uid"]);
                 return View();
             }
             else
             {
                 //return new HttpStatusCodeResult(401);
                 return RedirectToAction("LogInPage2");
-
             }
            
         }
