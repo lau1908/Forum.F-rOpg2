@@ -127,9 +127,9 @@
             $.connection.hub.start().done();
 
             $('#message').keyup(function (e) {
-                if (e.keyCode == 13) {
+                if (e.keyCode == 13) { //hvis Enter blive trykket køres koden
                     sendMSG()
-                    document.getElementById("message").value = " ";
+                    document.getElementById("message").value = " ";//tømmer skrivefeltet efter beskeden er sendt 
                 }
             })
         });
@@ -143,7 +143,7 @@
 
 
         function sendMSG() {//denne funktion sender beskeden 
-            $.post("/Home/Chat", { name: "@Session["username"]", message: $('#message').val() }, function () { 
+            $.post("/Home/Chat", {  message: $('#message').val() }, function () { 
                 console.log("OK")
             });
         }
